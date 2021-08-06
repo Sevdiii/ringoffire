@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/modals/game';
 
 
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  currentCard: string = '';
+  currentCard: any;
 pickCardAnimation = false;
- game: Game;
+game: Game;
   constructor() { }
 
   ngOnInit(): void {
@@ -22,7 +23,16 @@ pickCardAnimation = false;
     console.log(this.game)
   }
   takeCard(){
-    this.currentCard = this.game?.stack.pop();
+
+    if(!this.pickCardAnimation){
+        this.currentCard = this.game.stack.pop();
+    console.log(this.currentCard);
     this.pickCardAnimation = true;
+
+    setTimeout(() => {
+      this.pickCardAnimation = false;
+    }, 1500);
+    }
+  
   }
 }
